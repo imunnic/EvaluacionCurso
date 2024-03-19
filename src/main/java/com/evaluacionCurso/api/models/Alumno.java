@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.imunnic.testController.Participant;
 import com.imunnic.testController.Result;
 
-@JsonIgnoreProperties({"alias", "name", "dorsal", "id"})
+@JsonIgnoreProperties({"alias", "name", "dorsal", "id", "results"})
 @JsonPropertyOrder({"idAlumno", "nombre", "results"})
 public class Alumno extends Participant{
   
@@ -25,6 +25,14 @@ public class Alumno extends Participant{
   
   public String getNombre() {
     return getName();
+  }
+  
+  public void addNota(Nota nota) {
+    getResults().add(nota);
+  }
+  
+  public List<Result> getNotas(){
+    return getResults();
   }
   
   public Alumno() {

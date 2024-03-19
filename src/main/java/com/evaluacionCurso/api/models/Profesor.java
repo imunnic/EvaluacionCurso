@@ -1,7 +1,6 @@
 package com.evaluacionCurso.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.imunnic.testController.Tester;
 @JsonIgnoreProperties({"alias", "name", "testerid"})
 public class Profesor extends Tester {
@@ -9,7 +8,7 @@ public class Profesor extends Tester {
   private void setIdProfesor(int id) {
    setTesterId(id);
   }
-
+  
   public int getIdProfesor() {
     return getId();
   }
@@ -38,6 +37,6 @@ public class Profesor extends Tester {
   @Override
   public String toString() {
     // TODO Auto-generated method stub
-    return "Profesor: " + getNombre();
+    return "Profesor: " + getNombre() + " Id: " + getTesterId();
   }
 }

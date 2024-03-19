@@ -9,7 +9,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.imunnic.testController.Result;
+import com.imunnic.testController.Tester;
 
 public class pruebas {
 
@@ -37,6 +39,10 @@ public class pruebas {
 
     ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT)
         .enable(Feature.ALLOW_UNQUOTED_FIELD_NAMES);
+    mapper.addMixIn(Nota.class, MixIns.Resultados.class);
+    mapper.addMixIn(Asignatura.class, MixIns.Asignaturas.class);
+
+
     // leo los alumnos del Json
     try (BufferedReader buffer =
         new BufferedReader(new FileReader(new File("./src/main/resources/alumnos.json")))) {
@@ -121,12 +127,15 @@ public class pruebas {
     // primero
     dim46.sort();
     dim46.mostrarClasificacion();
+    System.out.println("--------------------");
     // Vamos a ver los datos al serializar un participante
     try {
       System.out.println(mapper.writeValueAsString(dim46.getAlumnos().get(0)));
     } catch (JsonProcessingException e) {
       e.printStackTrace();
     }
+    System.out.println("--------------------");
+//    System.out.println(dim46.getAlumnos().get(0).getResults().get(2).getTester().getId());
     // Cuando serializa el alumno, al mostrar los resultados, el profesor se almacena como tester,
     // pero yo quiero que se almacene como profesor, ¿es ahí donde entran los mixins? si es ahí,
     // ¿Cómo?
