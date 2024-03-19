@@ -5,26 +5,27 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.imunnic.testController.Participant;
+import com.imunnic.testController.Person;
 import com.imunnic.testController.Result;
 
-@JsonIgnoreProperties({"alias", "name", "dorsal", "id", "results"})
-@JsonPropertyOrder({"idAlumno", "nombre", "results"})
+@JsonIgnoreProperties({"name", "dorsal", "id", "person", "alias", "results"})
+@JsonPropertyOrder({"idAlumno", "nombre", "notas"})
 public class Alumno extends Participant{
   
-  private void setIdAlumno(int id) {
-    setDorsal(id);
+  private void setIdAlumno(Long id) {
+    setId(id);
   }
   
-  private void setNombre(String nombre) {
-    setName(nombre);
-  }
-  
-  public int getIdAlumno() {
+  public Long getIdAlumno() {
     return getId();
   }
   
+  public void setNombre(String nombre) {
+    getPerson().setName(nombre);
+  }
+  
   public String getNombre() {
-    return getName();
+    return getPerson().getName();
   }
   
   public void addNota(Nota nota) {
@@ -36,26 +37,23 @@ public class Alumno extends Participant{
   }
   
   public Alumno() {
-    super();
     setResults(new ArrayList<Result>());
+    setPerson(new Person<Long>());
   }
 
-  public Alumno(String name, String alias) {
-    super(name, alias);
-    setResults(new ArrayList<Result>());
-  }
-
-  public Alumno(String name, int idAlumno, String alias) {
-    super(name, idAlumno, alias);
+  public Alumno(String name, Long id) {
+    this();
+    setIdAlumno(id);
+    setNombre(name);
   }
   
-  public Alumno(String name, String alias,int idAlumno, List<Result> results) {
-    super(name, idAlumno, alias);
+  public Alumno(String name, Long id, List<Result> results) {
+    this(name, id);
     setResults(results);
   }
   
   @Override
   public String toString() {
-    return "Alumno: " + getName();
+    return "Alumno: " + getPerson().getName() /*+ " Id: " + getIdAlumno()*/;
   }
 }

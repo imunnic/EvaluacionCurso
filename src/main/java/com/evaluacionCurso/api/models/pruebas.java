@@ -39,7 +39,8 @@ public class pruebas {
 
     ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT)
         .enable(Feature.ALLOW_UNQUOTED_FIELD_NAMES);
-    mapper.addMixIn(Nota.class, MixIns.Resultados.class);
+    mapper.addMixIn(Result.class, MixIns.Resultados.class);
+//    mapper.addMixIn(Alumno.class, MixIns.Alumnos.class);
     mapper.addMixIn(Asignatura.class, MixIns.Asignaturas.class);
 
 
@@ -101,7 +102,7 @@ public class pruebas {
     dim46.getTesters().get(0).asignResult(dim46.getParticipants().get(0), result1);
     result1 = dim46.getProfesores().get(2).certifyResult(Asignatura.INGENIERIA_SOFTWARE, 8);
     dim46.getTesters().get(0).asignResult(dim46.getParticipants().get(0), result1);
-    result1 = dim46.getProfesores().get(3).certifyResult(Asignatura.REDES_COMUNICACIONES, 6);
+    result1 = dim46.getProfesores().get(3).certifyResult(Asignatura.INTRODUCCION_BBDD, 6);
     dim46.getTesters().get(0).asignResult(dim46.getParticipants().get(0), result1);
     result1 = dim46.getProfesores().get(4).certifyResult(Asignatura.INTRODUCCION_PROGRAMACION, 5);
     dim46.getTesters().get(0).asignResult(dim46.getParticipants().get(0), result1);
@@ -119,7 +120,7 @@ public class pruebas {
     dim46.getTesters().get(0).asignResult(dim46.getParticipants().get(1), result2);
     result2 = dim46.getProfesores().get(2).certifyResult(Asignatura.INGENIERIA_SOFTWARE, 9);
     dim46.getTesters().get(0).asignResult(dim46.getParticipants().get(1), result2);
-    result2 = dim46.getProfesores().get(3).certifyResult(Asignatura.REDES_COMUNICACIONES, 9);
+    result2 = dim46.getProfesores().get(3).certifyResult(Asignatura.INTRODUCCION_BBDD, 9);
     dim46.getTesters().get(0).asignResult(dim46.getParticipants().get(1), result2);
     result2 = dim46.getProfesores().get(4).certifyResult(Asignatura.INTRODUCCION_PROGRAMACION, 10);
     dim46.getTesters().get(0).asignResult(dim46.getParticipants().get(1), result2);
@@ -135,9 +136,13 @@ public class pruebas {
       e.printStackTrace();
     }
     System.out.println("--------------------");
+    Result result3=dim46.getProfesores().get(2).certifyResult(Asignatura.ARQUITECTURA_COMPUTADORES, 9);
+    try {
+      System.out.println(mapper.writeValueAsString(result3));
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
 //    System.out.println(dim46.getAlumnos().get(0).getResults().get(2).getTester().getId());
-    // Cuando serializa el alumno, al mostrar los resultados, el profesor se almacena como tester,
-    // pero yo quiero que se almacene como profesor, ¿es ahí donde entran los mixins? si es ahí,
-    // ¿Cómo?
+
   }
 }

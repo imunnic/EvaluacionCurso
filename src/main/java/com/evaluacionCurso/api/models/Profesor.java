@@ -1,8 +1,11 @@
 package com.evaluacionCurso.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.imunnic.testController.Tester;
-@JsonIgnoreProperties({"alias", "name", "testerid"})
+
+@JsonIgnoreProperties({"alias", "name", "testerId", "id"})
+@JsonPropertyOrder({"idProfesor", "nombre"})
 public class Profesor extends Tester {
   
   private void setIdProfesor(int id) {
@@ -31,12 +34,11 @@ public class Profesor extends Tester {
 
   public Profesor(String nombre, String alias,int idProfesor) {
     super(nombre, alias);
-    setTesterId(idProfesor);
+    setIdProfesor(idProfesor);
   }
   
   @Override
   public String toString() {
-    // TODO Auto-generated method stub
     return "Profesor: " + getNombre() + " Id: " + getTesterId();
   }
 }
